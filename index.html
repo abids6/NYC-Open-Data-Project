@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NYC Open Data</title>
+
+    <style>
+      html, body{
+        margin:0 auto;
+        font-family:Arial;
+      }
+
+      .container{
+        display:flex;
+        padding:10px;
+      }
+
+      .center{
+        justify-content:center;
+        align-items:center;
+      }
+
+      .subbanner{
+        background-color:cornflowerblue;
+      }
+
+      #banner{
+        background-color:blue;
+        color:white;
+      }
+
+      #footer{
+        background-color:cornflowerblue;
+        color:white;
+        left:0;
+        right:0;
+        bottom:0px;
+      }
+
+      .card{
+        flex:1;
+        margin:10px;
+        padding:10px;
+        border:1px solid gray;
+        text-align:center;
+        max-width:180px;
+        min-width:180px;
+        background-color:white;
+      }
+
+      .button{
+        text-decoration:none;
+        background-color:blue;
+        color:white;
+        border-radius:4px;
+        padding:6px;
+        box-shadow:2px 2px 2px black;
+        cursor:pointer;
+        display:inline-block;
+      }
+
+      .button:hover{
+        background-color:cornflowerblue;
+      }
+
+      #output{
+        flex-wrap:wrap;
+      }
+
+      .highlight{
+        font-style:italic;
+        color:blue;
+      }
+
+      .heading{
+        font-weight:bold;
+      }
+
+      input{
+        padding:6px;
+        margin:5px;
+      }
+    </style>
+
+    <script>
+      let data = [
+        {
+          school_year:"2025-2026",
+          boro:"Brooklyn",
+          route_number:"K3333",
+          bus_no:"20387",
+          reason:"Other",
+          how_long_delayed:"46-60 Min",
+          number_of_students_on_the_bus:"0",
+          breakdown_or_running_late:"Running Late",
+          bus_company_name:"BORO TRANSIT, INC."
+        },
+        {
+          school_year:"2025-2026",
+          boro:"Queens",
+          route_number:"P702",
+          bus_no:"1521",
+          reason:"Heavy Traffic",
+          how_long_delayed:"0-15 Min",
+          number_of_students_on_the_bus:"1",
+          breakdown_or_running_late:"Running Late",
+          bus_company_name:"HOYT TRANSPORTATION CORP."
+        }
+      ];
+
+      function init(){
+        showCards(data);
+      }
+
+      function showCards(list){
+        let output = document.getElementById("output");
+        let build = "";
+
+        for(let i = 0; i < list.length; i++){
+          let delay = list[i];
+
+          build += `<div class="card">`;
+          build += `<h3>Bus Delay</h3>`;
+          build += `<p><span class="heading">School Year:</span> ${delay.school_year}</p>`;
+          build += `<p><span class="heading">Borough:</span> ${delay.boro}</p>`;
+          build += `<p><span class="heading">Route:</span> ${delay.route_number}</p>`;
+          build += `<p><span class="heading">Bus Number:</span> ${delay.bus_no}</p>`;
+          build += `<p><span class="heading">Reason:</span> <span class="highlight">${delay.reason}</span></p>`;
+          build += `<p><span class="heading">Delay Time:</span> ${delay.how_long_delayed}</p>`;
+          build += `<p><span class="heading">Students:</span> ${delay.number_of_students_on_the_bus}</p>`;
+          build += `<p><span class="heading">Status:</span> ${delay.breakdown_or_running_late}</p>`;
+          build += `<p><span class="heading">Company:</span> ${delay.bus_company_name}</p>`;
+          build += `</div>`;
+        }
+
+        output.innerHTML = build;
+      }
+
+      function filterByBorough(){
+        let borough = document.getElementById("borough").value;
+        let filtered = [];
+
+        for(let i = 0; i < data.length; i++){
+          if(data[i].boro.toLowerCase() == borough.toLowerCase()){
+            filtered.push(data[i]);
+          }
+        }
+
+        document.getElementById("result").innerHTML = "<h3>Results Found: " + filtered.length + "</h3>";
+        showCards(filtered);
+      }
+
+      function filterByBoroughAndStatus(){
+        let borough = document.getElementById("borough2").value;
+        let status = document.getElementById("status").value;
+        let filtered = [];
+
+        for(let i = 0; i < data.length; i++){
+          if(data[i].boro.toLowerCase() == borough.toLowerCase() && data[i].breakdown_or_running_late.toLowerCase() == status.toLowerCase()){
+            filtered.push(data[i]);
+          }
+        }
+
+        document.getElementById("result").innerHTML = "<h3>Results Found: " + filtered.length + "</h3>";
+        showCards(filtered);
+      }
+
+      function showAll(){
+        document.getElementById("borough").value = "";
+        document.getElementById("borough2").value = "";
+        document.getElementById("status").value = "";
+        document.getElementById("result").innerHTML = "";
+        showCards(data);
+      }
+    </script>
+  </head>
+
+  <body onload="init()">
+
+    <div id="banner" class="container center">
+      <div style="text-align:center">
+        <h1>NYC Open Data</h1>
+        <h2>Bus Delayed</h2>
+      </div>
+    </div>
+
+    <div class="container subbanner">
+      <div>
+        <p>This website shows NYC Bus Breakdown and Delays.</p>
+
+        <a class="button" href="https://data.cityofnewyork.us/resource/ez4e-fazm.json" target="_blank">NYC Open Data</a>
+
+        <a class="button" href="https://data.cityofnewyork.us/Transportation/Bus-Breakdown-and-Delays/ez4e-fazm/about_data" target="_blank">Bus Delay Dataset</a>
+      </div>
+    </div>
+
+    <div style="padding:20px">
+
+      <h3 style="display:inline;">Search By Borough</h3>
+
+      <input type="text" id="borough" placeholder="Enter Borough">
+
+      <a class="button" onclick="filterByBorough()">Search</a>
+
+      <a class="button" onclick="showAll()">Show All</a>
+
+      <hr>
+
+      <h3 style="display:inline;">Search By Borough and Status</h3>
+
+      <input type="text" id="borough2" placeholder="Enter Borough">
+
+      <input type="text" id="status" placeholder="Running Late">
+
+      <a class="button" onclick="filterByBoroughAndStatus()">Search</a>
+
+      <hr>
+
+    </div>
+
+    <div id="result" class="container">
+    </div>
+
+    <div id="output" class="container">
+    </div>
+
+    <div id="footer" class="container center">
+      <h3>NYC Open Data Project</h3>
+    </div>
+
+  </body>
+</html>
