@@ -1,22 +1,48 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Filter Page</title>
+    <title>Filter Bus Delays</title>
     <link href="style.css" rel="stylesheet" type="text/css">
+    <script src="script.js"></script>
   </head>
 
-  <body>
+  <body onload="init()">
 
     <div id="banner" class="container center">
       <div style="text-align:center">
-        <h1>Filter Page</h1>
-        <h2>Bus Delays</h2>
+        <h1>View / Filter Information</h1>
+        <h2>School Bus Delays</h2>
+      </div>
+    </div>
+
+    <div class="container subbanner">
+      <div>
+        <a class="button" href="index.html">Home</a>
+        <a class="button" href="filter.html">View / Filter</a>
+        <a class="button" href="analysis.html">Analysis</a>
       </div>
     </div>
 
     <div style="padding:20px">
-      <p>This page will be used later for filtering bus delay data.</p>
-      <a class="button" href="index.html">Back Home</a>
+      <h3>Search By Borough</h3>
+
+      <input type="text" id="borough" placeholder="Enter Borough">
+
+      <a class="button" onclick="filterByBorough()">Search</a>
+
+      <a class="button" onclick="showAll()">Show All</a>
+
+      <hr>
+    </div>
+
+    <div id="result" class="container">
+    </div>
+
+    <div id="output" class="container">
+    </div>
+
+    <div id="footer" class="container center">
+      <h3>NYC Open Data Project</h3>
     </div>
 
   </body>

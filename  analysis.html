@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Analysis Page</title>
+    <title>Bus Delay Analysis</title>
     <link href="style.css" rel="stylesheet" type="text/css">
   </head>
 
@@ -9,14 +9,47 @@
 
     <div id="banner" class="container center">
       <div style="text-align:center">
-        <h1>Analysis Page</h1>
-        <h2>Bus Delays</h2>
+        <h1>Analysis</h1>
+        <h2>School Bus Delays</h2>
+      </div>
+    </div>
+
+    <div class="container subbanner">
+      <div>
+        <a class="button" href="index.html">Home</a>
+        <a class="button" href="filter.html">View / Filter</a>
+        <a class="button" href="analysis.html">Analysis</a>
       </div>
     </div>
 
     <div style="padding:20px">
-      <p>This page will be used later to explain patterns in the bus delay data.</p>
-      <a class="button" href="index.html">Back Home</a>
+      <h3>Simple Analysis</h3>
+
+      <p>
+        From the two records being used, both buses were running late.
+        One delay happened in Brooklyn and one delay happened in Queens.
+      </p>
+
+      <h3>Delay Reasons</h3>
+
+      <p>
+        The Brooklyn bus delay reason was listed as Other.
+        The Queens bus delay reason was Heavy Traffic.
+      </p>
+
+      <h3>Small Chart</h3>
+
+      <div class="barbox">
+        <p>Brooklyn</p>
+        <div class="bar" style="width:80px;">1</div>
+
+        <p>Queens</p>
+        <div class="bar" style="width:80px;">1</div>
+      </div>
+    </div>
+
+    <div id="footer" class="container center">
+      <h3>NYC Open Data Project</h3>
     </div>
 
   </body>
