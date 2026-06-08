@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bus Delay Analysis</title>
+    <title>Analysis</title>
     <link href="style.css" rel="stylesheet" type="text/css">
   </head>
 
@@ -22,30 +22,46 @@
       </div>
     </div>
 
-    <div style="padding:20px">
-      <h3>Simple Analysis</h3>
+    <div class="main">
+      <h3>Analysis Question</h3>
 
       <p>
-        From the two records being used, both buses were running late.
-        One delay happened in Brooklyn and one delay happened in Queens.
+        One thing I wanted to look at was which boroughs appeared in the sample bus
+        delay records.
+      </p>
+
+      <h3>Chart: Number of Delay Records By Borough</h3>
+
+      <div class="chart">
+        <p>Brooklyn</p>
+        <div class="bar" style="width:160px;">2</div>
+
+        <p>Queens</p>
+        <div class="bar" style="width:160px;">2</div>
+
+        <p>Bronx</p>
+        <div class="bar" style="width:80px;">1</div>
+
+        <p>Staten Island</p>
+        <div class="bar" style="width:80px;">1</div>
+      </div>
+
+      <h3>What The Chart Shows</h3>
+
+      <p>
+        The chart shows that Brooklyn and Queens have the most records in this small
+        sample. Bronx and Staten Island each appear once. This does not mean those
+        boroughs always have the most delays, but it shows what appears in the data
+        used for this project.
       </p>
 
       <h3>Delay Reasons</h3>
 
       <p>
-        The Brooklyn bus delay reason was listed as Other.
-        The Queens bus delay reason was Heavy Traffic.
+        Some reasons in the data include Heavy Traffic, Mechanical Problem, Other,
+        and Won't Start. This shows that school bus delays can happen for different
+        reasons.
       </p>
-
-      <h3>Small Chart</h3>
-
-      <div class="barbox">
-        <p>Brooklyn</p>
-        <div class="bar" style="width:80px;">1</div>
-
-        <p>Queens</p>
-        <div class="bar" style="width:80px;">1</div>
-      </div>
     </div>
 
     <div id="footer" class="container center">

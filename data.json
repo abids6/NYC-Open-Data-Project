@@ -24,5 +24,57 @@
     "how_long_delayed": "0-15 Min",
     "number_of_students_on_the_bus": "1",
     "breakdown_or_running_late": "Running Late"
+  },
+  {
+    "school_year": "2025-2026",
+    "busbreakdown_id": "2010773",
+    "run_type": "General Ed AM Run",
+    "bus_no": "2347",
+    "route_number": "K1306",
+    "reason": "Mechanical Problem",
+    "boro": "Brooklyn",
+    "bus_company_name": "ALL AMERICAN SCHOOL BUS CORP.",
+    "how_long_delayed": "Not Listed",
+    "number_of_students_on_the_bus": "2",
+    "breakdown_or_running_late": "Breakdown"
+  },
+  {
+    "school_year": "2025-2026",
+    "busbreakdown_id": "2010776",
+    "run_type": "General Ed AM Run",
+    "bus_no": "373",
+    "route_number": "R1172",
+    "reason": "Heavy Traffic",
+    "boro": "Staten Island",
+    "bus_company_name": "PIONEER TRANSPORTATION CORP",
+    "how_long_delayed": "46-60 Min",
+    "number_of_students_on_the_bus": "0",
+    "breakdown_or_running_late": "Running Late"
+  },
+  {
+    "school_year": "2025-2026",
+    "busbreakdown_id": "2010520",
+    "run_type": "Special Ed PM Run",
+    "bus_no": "11671",
+    "route_number": "X413",
+    "reason": "Won't Start",
+    "boro": "Bronx",
+    "bus_company_name": "HOYT TRANSPORTATION CORP.",
+    "how_long_delayed": "Not Listed",
+    "number_of_students_on_the_bus": "0",
+    "breakdown_or_running_late": "Breakdown"
+  },
+  {
+    "school_year": "2025-2026",
+    "busbreakdown_id": "2010517",
+    "run_type": "General Ed PM Run",
+    "bus_no": "1962",
+    "route_number": "Q9858",
+    "reason": "Other",
+    "boro": "Queens",
+    "bus_company_name": "JOFAZ TRANSPORTATION INC.",
+    "how_long_delayed": "31-45 Min",
+    "number_of_students_on_the_bus": "0",
+    "breakdown_or_running_late": "Running Late"
   }
 ]

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Filter Bus Delays</title>
+    <title>View and Filter</title>
     <link href="style.css" rel="stylesheet" type="text/css">
     <script src="script.js"></script>
   </head>
@@ -23,12 +23,29 @@
       </div>
     </div>
 
-    <div style="padding:20px">
-      <h3>Search By Borough</h3>
+    <div class="main">
+      <h3>Bus Delay Cards</h3>
 
-      <input type="text" id="borough" placeholder="Enter Borough">
+      <p>
+        This page shows bus delay records in card form. You can search by borough
+        or by status.
+      </p>
+
+      <hr>
+
+      <h3 style="display:inline;">Search By Borough</h3>
+
+      <input type="text" id="borough" placeholder="Brooklyn">
 
       <a class="button" onclick="filterByBorough()">Search</a>
+
+      <hr>
+
+      <h3 style="display:inline;">Search By Status</h3>
+
+      <input type="text" id="status" placeholder="Running Late">
+
+      <a class="button" onclick="filterByStatus()">Search</a>
 
       <a class="button" onclick="showAll()">Show All</a>
 

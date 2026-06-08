@@ -1,47 +1,66 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NYC Open Data</title>
+    <title>NYC Open Data Project</title>
     <link href="style.css" rel="stylesheet" type="text/css">
     <script src="script.js"></script>
   </head>
 
-  <body onload="init()">
+  <body>
 
     <div id="banner" class="container center">
       <div style="text-align:center">
-        <h1>NYC Open Data</h1>
-        <h2>School Bus Delays Report</h2>
+        <h1>NYC Open Data Project</h1>
+        <h2>School Bus Delays</h2>
       </div>
     </div>
 
     <div class="container subbanner">
       <div>
-        <p>This website shows NYC school bus breakdown and delay information.</p>
-
         <a class="button" href="index.html">Home</a>
         <a class="button" href="filter.html">View / Filter</a>
         <a class="button" href="analysis.html">Analysis</a>
-        <a class="button" href="https://data.cityofnewyork.us/resource/ez4e-fazm.json" target="_blank">NYC Open Data</a>
+        <a class="button" href="https://data.cityofnewyork.us/Transportation/Bus-Breakdown-and-Delays/ez4e-fazm/about_data" target="_blank">Dataset</a>
       </div>
     </div>
 
-    <div style="padding:20px">
+    <div class="main">
       <h3>Background</h3>
 
       <p>
-        This dataset shows school bus delays and breakdowns in New York City.
-        It includes information like the borough, bus route, reason for delay,
-        delay time, and bus company.
+        This website uses the School Bus Breakdown and Delays dataset from NYC Open Data.
+        The dataset is connected to school bus delay reports in New York City.
       </p>
 
       <p>
-        This website helps users view the School bus delay data in card format.
-        Users can also go to the filter page to search by borough.
+        The agency connected to this dataset is the Department of Education.
+        This makes sense because the data is about school buses, students, routes,
+        bus companies, and delay reports.
       </p>
-    </div>
 
-    <div id="output" class="container">
+      <h3>About The Dataset</h3>
+
+      <p>
+        The dataset includes information such as the borough, bus route, bus number,
+        reason for the delay, how long the bus was delayed, students on the bus,
+        and the bus company.
+      </p>
+
+      <h3>Why This Data Matters</h3>
+
+      <p>
+        School bus delays matter because students, families, schools, and bus companies
+        can all be affected when a bus is late or breaks down. Looking at this data can
+        help people understand where delays happen and what causes them.
+      </p>
+
+      <h3>What This Website Provides</h3>
+
+      <p>
+        The View / Filter page shows the bus delay data in card form. Users can filter
+        the cards by borough or by delay status. The Analysis page shows a simple chart
+        and explains what the chart shows.
+      </p>
     </div>
 
     <div id="footer" class="container center">

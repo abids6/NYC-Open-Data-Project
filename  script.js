@@ -23,6 +23,7 @@ function displayCards(list){
       "<p><span class='heading'>Borough:</span> " + bus.boro + "</p>" +
       "<p><span class='heading'>Route:</span> " + bus.route_number + "</p>" +
       "<p><span class='heading'>Bus Number:</span> " + bus.bus_no + "</p>" +
+      "<p><span class='heading'>Run Type:</span> " + bus.run_type + "</p>" +
       "<p><span class='heading'>Reason:</span> <span class='highlight'>" + bus.reason + "</span></p>" +
       "<p><span class='heading'>Delay Time:</span> " + bus.how_long_delayed + "</p>" +
       "<p><span class='heading'>Students:</span> " + bus.number_of_students_on_the_bus + "</p>" +
@@ -48,8 +49,24 @@ function filterByBorough(){
   displayCards(filtered);
 }
 
+function filterByStatus(){
+  let status = document.getElementById("status").value;
+  let filtered = [];
+
+  for(let i = 0; i < data.length; i++){
+    if(data[i].breakdown_or_running_late.toLowerCase() == status.toLowerCase()){
+      filtered.push(data[i]);
+    }
+  }
+
+  document.getElementById("result").innerHTML = "<h3>Results Found: " + filtered.length + "</h3>";
+
+  displayCards(filtered);
+}
+
 function showAll(){
   document.getElementById("borough").value = "";
+  document.getElementById("status").value = "";
   document.getElementById("result").innerHTML = "";
 
   displayCards(data);

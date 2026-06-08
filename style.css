@@ -13,31 +13,31 @@ html, body{
   align-items:center;
 }
 
-.subbanner{
-  background-color:cornflowerblue;
-}
-
 #banner{
   background-color:blue;
   color:white;
 }
 
+.subbanner{
+  background-color:cornflowerblue;
+}
+
 #footer{
   background-color:cornflowerblue;
   color:white;
-  left:0;
-  right:0;
-  bottom:0px;
+}
+
+.main{
+  padding:20px;
 }
 
 .card{
-  flex:1;
   margin:10px;
   padding:10px;
   border:1px solid gray;
   text-align:center;
-  max-width:180px;
-  min-width:180px;
+  max-width:190px;
+  min-width:190px;
 }
 
 .button{
@@ -49,6 +49,7 @@ html, body{
   box-shadow:2px 2px 2px black;
   display:inline-block;
   margin:3px;
+  cursor:pointer;
 }
 
 .button:hover{
@@ -73,15 +74,15 @@ input{
   margin:5px;
 }
 
-.barbox{
+.chart{
   border:1px solid gray;
   padding:10px;
-  width:250px;
+  width:300px;
 }
 
 .bar{
   background-color:cornflowerblue;
   color:white;
-  padding:5px;
+  padding:6px;
   margin:5px;
 }
