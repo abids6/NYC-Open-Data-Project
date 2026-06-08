@@ -3,10 +3,9 @@
   <head>
     <title>View and Filter</title>
     <link href="style.css" rel="stylesheet" type="text/css">
-    <script src="script.js"></script>
   </head>
 
-  <body onload="init()">
+  <body>
 
     <div id="banner" class="container center">
       <div style="text-align:center">
@@ -27,40 +26,172 @@
       <h3>Bus Delay Cards</h3>
 
       <p>
-        This page shows bus delay records in card form. You can search by borough
-        or by status.
+        This page shows school bus delay records in card form.
+        You can search by borough or by status.
       </p>
 
       <hr>
 
       <h3 style="display:inline;">Search By Borough</h3>
-
-      <input type="text" id="borough" placeholder="Brooklyn">
-
-      <a class="button" onclick="filterByBorough()">Search</a>
+      <input type="text" id="borough" placeholder="Queens">
+      <button class="button" id="boroughButton">Search</button>
 
       <hr>
 
       <h3 style="display:inline;">Search By Status</h3>
-
       <input type="text" id="status" placeholder="Running Late">
-
-      <a class="button" onclick="filterByStatus()">Search</a>
-
-      <a class="button" onclick="showAll()">Show All</a>
+      <button class="button" id="statusButton">Search</button>
+      <button class="button" id="showButton">Show All</button>
 
       <hr>
     </div>
 
-    <div id="result" class="container">
-    </div>
+    <div id="result" class="container"></div>
 
-    <div id="output" class="container">
-    </div>
+    <div id="output" class="container"></div>
 
     <div id="footer" class="container center">
       <h3>NYC Open Data Project</h3>
     </div>
+
+    <script>
+      let data = [
+        {
+          boro:"Brooklyn",
+          route_number:"K3333",
+          bus_no:"20387",
+          run_type:"General Ed AM Run",
+          reason:"Other",
+          how_long_delayed:"46-60 Min",
+          number_of_students_on_the_bus:"0",
+          breakdown_or_running_late:"Running Late",
+          bus_company_name:"BORO TRANSIT, INC."
+        },
+        {
+          boro:"Queens",
+          route_number:"P702",
+          bus_no:"1521",
+          run_type:"Special Ed AM Run",
+          reason:"Heavy Traffic",
+          how_long_delayed:"0-15 Min",
+          number_of_students_on_the_bus:"1",
+          breakdown_or_running_late:"Running Late",
+          bus_company_name:"HOYT TRANSPORTATION CORP."
+        },
+        {
+          boro:"Brooklyn",
+          route_number:"K1306",
+          bus_no:"2347",
+          run_type:"General Ed AM Run",
+          reason:"Mechanical Problem",
+          how_long_delayed:"Not Listed",
+          number_of_students_on_the_bus:"2",
+          breakdown_or_running_late:"Breakdown",
+          bus_company_name:"ALL AMERICAN SCHOOL BUS CORP."
+        },
+        {
+          boro:"Staten Island",
+          route_number:"R1172",
+          bus_no:"373",
+          run_type:"General Ed AM Run",
+          reason:"Heavy Traffic",
+          how_long_delayed:"46-60 Min",
+          number_of_students_on_the_bus:"0",
+          breakdown_or_running_late:"Running Late",
+          bus_company_name:"PIONEER TRANSPORTATION CORP"
+        },
+        {
+          boro:"Bronx",
+          route_number:"X413",
+          bus_no:"11671",
+          run_type:"Special Ed PM Run",
+          reason:"Won't Start",
+          how_long_delayed:"Not Listed",
+          number_of_students_on_the_bus:"0",
+          breakdown_or_running_late:"Breakdown",
+          bus_company_name:"HOYT TRANSPORTATION CORP."
+        },
+        {
+          boro:"Queens",
+          route_number:"Q9858",
+          bus_no:"1962",
+          run_type:"General Ed PM Run",
+          reason:"Other",
+          how_long_delayed:"31-45 Min",
+          number_of_students_on_the_bus:"0",
+          breakdown_or_running_late:"Running Late",
+          bus_company_name:"JOFAZ TRANSPORTATION INC."
+        }
+      ];
+
+      function showCards(list){
+        let output = document.getElementById("output");
+        output.innerHTML = "";
+
+        for(let i = 0; i < list.length; i++){
+          let bus = list[i];
+
+          output.innerHTML +=
+            "<div class='card'>" +
+            "<h3>Bus Delay</h3>" +
+            "<p><span class='heading'>Borough:</span> " + bus.boro + "</p>" +
+            "<p><span class='heading'>Route:</span> " + bus.route_number + "</p>" +
+            "<p><span class='heading'>Bus Number:</span> " + bus.bus_no + "</p>" +
+            "<p><span class='heading'>Run Type:</span> " + bus.run_type + "</p>" +
+            "<p><span class='heading'>Reason:</span> <span class='highlight'>" + bus.reason + "</span></p>" +
+            "<p><span class='heading'>Delay Time:</span> " + bus.how_long_delayed + "</p>" +
+            "<p><span class='heading'>Students:</span> " + bus.number_of_students_on_the_bus + "</p>" +
+            "<p><span class='heading'>Status:</span> " + bus.breakdown_or_running_late + "</p>" +
+            "<p><span class='heading'>Company:</span> " + bus.bus_company_name + "</p>" +
+            "</div>";
+        }
+
+        if(list.length == 0){
+          output.innerHTML = "<p>No results found.</p>";
+        }
+      }
+
+      function searchBorough(){
+        let borough = document.getElementById("borough").value.toLowerCase();
+        let filtered = [];
+
+        for(let i = 0; i < data.length; i++){
+          if(data[i].boro.toLowerCase() == borough){
+            filtered.push(data[i]);
+          }
+        }
+
+        document.getElementById("result").innerHTML = "<h3>Results Found: " + filtered.length + "</h3>";
+        showCards(filtered);
+      }
+
+      function searchStatus(){
+        let status = document.getElementById("status").value.toLowerCase();
+        let filtered = [];
+
+        for(let i = 0; i < data.length; i++){
+          if(data[i].breakdown_or_running_late.toLowerCase() == status){
+            filtered.push(data[i]);
+          }
+        }
+
+        document.getElementById("result").innerHTML = "<h3>Results Found: " + filtered.length + "</h3>";
+        showCards(filtered);
+      }
+
+      function showAll(){
+        document.getElementById("borough").value = "";
+        document.getElementById("status").value = "";
+        document.getElementById("result").innerHTML = "";
+        showCards(data);
+      }
+
+      document.getElementById("boroughButton").onclick = searchBorough;
+      document.getElementById("statusButton").onclick = searchStatus;
+      document.getElementById("showButton").onclick = showAll;
+
+      showCards(data);
+    </script>
 
   </body>
 </html>

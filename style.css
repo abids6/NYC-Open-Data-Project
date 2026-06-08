@@ -50,6 +50,7 @@ html, body{
   display:inline-block;
   margin:3px;
   cursor:pointer;
+  border:none;
 }
 
 .button:hover{
