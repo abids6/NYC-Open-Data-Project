@@ -2,7 +2,11 @@
 <html>
   <head>
     <title>View and Filter</title>
+
     <link href="style.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   </head>
 
   <body>
@@ -34,14 +38,20 @@
 
       <h3 style="display:inline;">Search By Borough</h3>
       <input type="text" id="borough" placeholder="Queens">
-      <button class="button" id="boroughButton">Search</button>
+      <button class="button" onclick="searchBorough()">Search</button>
 
       <hr>
 
       <h3 style="display:inline;">Search By Status</h3>
       <input type="text" id="status" placeholder="Running Late">
-      <button class="button" id="statusButton">Search</button>
-      <button class="button" id="showButton">Show All</button>
+      <button class="button" onclick="searchStatus()">Search</button>
+      <button class="button" onclick="showAll()">Show All</button>
+
+      <hr>
+
+      <h3>Map of School Bus Delay Records</h3>
+
+      <div id="map"></div>
 
       <hr>
     </div>
@@ -65,7 +75,9 @@
           how_long_delayed:"46-60 Min",
           number_of_students_on_the_bus:"0",
           breakdown_or_running_late:"Running Late",
-          bus_company_name:"BORO TRANSIT, INC."
+          bus_company_name:"BORO TRANSIT, INC.",
+          latitude:40.6782,
+          longitude:-73.9442
         },
         {
           boro:"Queens",
@@ -76,7 +88,9 @@
           how_long_delayed:"0-15 Min",
           number_of_students_on_the_bus:"1",
           breakdown_or_running_late:"Running Late",
-          bus_company_name:"HOYT TRANSPORTATION CORP."
+          bus_company_name:"HOYT TRANSPORTATION CORP.",
+          latitude:40.7282,
+          longitude:-73.7949
         },
         {
           boro:"Brooklyn",
@@ -87,7 +101,9 @@
           how_long_delayed:"Not Listed",
           number_of_students_on_the_bus:"2",
           breakdown_or_running_late:"Breakdown",
-          bus_company_name:"ALL AMERICAN SCHOOL BUS CORP."
+          bus_company_name:"ALL AMERICAN SCHOOL BUS CORP.",
+          latitude:40.6500,
+          longitude:-73.9496
         },
         {
           boro:"Staten Island",
@@ -98,7 +114,9 @@
           how_long_delayed:"46-60 Min",
           number_of_students_on_the_bus:"0",
           breakdown_or_running_late:"Running Late",
-          bus_company_name:"PIONEER TRANSPORTATION CORP"
+          bus_company_name:"PIONEER TRANSPORTATION CORP",
+          latitude:40.5795,
+          longitude:-74.1502
         },
         {
           boro:"Bronx",
@@ -109,7 +127,9 @@
           how_long_delayed:"Not Listed",
           number_of_students_on_the_bus:"0",
           breakdown_or_running_late:"Breakdown",
-          bus_company_name:"HOYT TRANSPORTATION CORP."
+          bus_company_name:"HOYT TRANSPORTATION CORP.",
+          latitude:40.8448,
+          longitude:-73.8648
         },
         {
           boro:"Queens",
@@ -120,12 +140,41 @@
           how_long_delayed:"31-45 Min",
           number_of_students_on_the_bus:"0",
           breakdown_or_running_late:"Running Late",
-          bus_company_name:"JOFAZ TRANSPORTATION INC."
+          bus_company_name:"JOFAZ TRANSPORTATION INC.",
+          latitude:40.7000,
+          longitude:-73.8300
         }
       ];
 
+      let map = L.map("map").setView([40.7128, -74.0060], 10);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom:18
+      }).addTo(map);
+
+      let markers = L.layerGroup().addTo(map);
+
+      function showMarkers(list){
+        markers.clearLayers();
+
+        for(let i = 0; i < list.length; i++){
+          let bus = list[i];
+
+          L.marker([bus.latitude, bus.longitude]).addTo(markers)
+          .bindPopup(
+            "<b>Bus Delay</b><br>" +
+            "Borough: " + bus.boro + "<br>" +
+            "Route: " + bus.route_number + "<br>" +
+            "Bus Number: " + bus.bus_no + "<br>" +
+            "Reason: " + bus.reason + "<br>" +
+            "Status: " + bus.breakdown_or_running_late
+          );
+        }
+      }
+
       function showCards(list){
         let output = document.getElementById("output");
+
         output.innerHTML = "";
 
         for(let i = 0; i < list.length; i++){
@@ -162,7 +211,9 @@
         }
 
         document.getElementById("result").innerHTML = "<h3>Results Found: " + filtered.length + "</h3>";
+
         showCards(filtered);
+        showMarkers(filtered);
       }
 
       function searchStatus(){
@@ -176,21 +227,22 @@
         }
 
         document.getElementById("result").innerHTML = "<h3>Results Found: " + filtered.length + "</h3>";
+
         showCards(filtered);
+        showMarkers(filtered);
       }
 
       function showAll(){
         document.getElementById("borough").value = "";
         document.getElementById("status").value = "";
         document.getElementById("result").innerHTML = "";
+
         showCards(data);
+        showMarkers(data);
       }
 
-      document.getElementById("boroughButton").onclick = searchBorough;
-      document.getElementById("statusButton").onclick = searchStatus;
-      document.getElementById("showButton").onclick = showAll;
-
       showCards(data);
+      showMarkers(data);
     </script>
 
   </body>

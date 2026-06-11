@@ -1,89 +1,128 @@
 let data = [
   {
-    school_year:"2025-2026",
-    busbreakdown_id:"2010465",
-    run_type:"General Ed AM Run",
-    bus_no:"20387",
-    route_number:"K3333",
-    reason:"Other",
     boro:"Brooklyn",
-    bus_company_name:"BORO TRANSIT, INC.",
+    route_number:"K3333",
+    bus_no:"20387",
+    run_type:"General Ed AM Run",
+    reason:"Other",
     how_long_delayed:"46-60 Min",
     number_of_students_on_the_bus:"0",
-    breakdown_or_running_late:"Running Late"
+    breakdown_or_running_late:"Running Late",
+    bus_company_name:"BORO TRANSIT, INC.",
+    latitude:40.6782,
+    longitude:-73.9442
   },
   {
-    school_year:"2025-2026",
-    busbreakdown_id:"2010467",
-    run_type:"Special Ed AM Run",
-    bus_no:"1521",
-    route_number:"P702",
-    reason:"Heavy Traffic",
     boro:"Queens",
-    bus_company_name:"HOYT TRANSPORTATION CORP.",
+    route_number:"P702",
+    bus_no:"1521",
+    run_type:"Special Ed AM Run",
+    reason:"Heavy Traffic",
     how_long_delayed:"0-15 Min",
     number_of_students_on_the_bus:"1",
-    breakdown_or_running_late:"Running Late"
+    breakdown_or_running_late:"Running Late",
+    bus_company_name:"HOYT TRANSPORTATION CORP.",
+    latitude:40.7282,
+    longitude:-73.7949
   },
   {
-    school_year:"2025-2026",
-    busbreakdown_id:"2010773",
-    run_type:"General Ed AM Run",
-    bus_no:"2347",
-    route_number:"K1306",
-    reason:"Mechanical Problem",
     boro:"Brooklyn",
-    bus_company_name:"ALL AMERICAN SCHOOL BUS CORP.",
+    route_number:"K1306",
+    bus_no:"2347",
+    run_type:"General Ed AM Run",
+    reason:"Mechanical Problem",
     how_long_delayed:"Not Listed",
     number_of_students_on_the_bus:"2",
-    breakdown_or_running_late:"Breakdown"
+    breakdown_or_running_late:"Breakdown",
+    bus_company_name:"ALL AMERICAN SCHOOL BUS CORP.",
+    latitude:40.6500,
+    longitude:-73.9496
   },
   {
-    school_year:"2025-2026",
-    busbreakdown_id:"2010776",
-    run_type:"General Ed AM Run",
-    bus_no:"373",
-    route_number:"R1172",
-    reason:"Heavy Traffic",
     boro:"Staten Island",
-    bus_company_name:"PIONEER TRANSPORTATION CORP",
+    route_number:"R1172",
+    bus_no:"373",
+    run_type:"General Ed AM Run",
+    reason:"Heavy Traffic",
     how_long_delayed:"46-60 Min",
     number_of_students_on_the_bus:"0",
-    breakdown_or_running_late:"Running Late"
+    breakdown_or_running_late:"Running Late",
+    bus_company_name:"PIONEER TRANSPORTATION CORP",
+    latitude:40.5795,
+    longitude:-74.1502
   },
   {
-    school_year:"2025-2026",
-    busbreakdown_id:"2010520",
-    run_type:"Special Ed PM Run",
-    bus_no:"11671",
-    route_number:"X413",
-    reason:"Won't Start",
     boro:"Bronx",
-    bus_company_name:"HOYT TRANSPORTATION CORP.",
+    route_number:"X413",
+    bus_no:"11671",
+    run_type:"Special Ed PM Run",
+    reason:"Won't Start",
     how_long_delayed:"Not Listed",
     number_of_students_on_the_bus:"0",
-    breakdown_or_running_late:"Breakdown"
+    breakdown_or_running_late:"Breakdown",
+    bus_company_name:"HOYT TRANSPORTATION CORP.",
+    latitude:40.8448,
+    longitude:-73.8648
   },
   {
-    school_year:"2025-2026",
-    busbreakdown_id:"2010517",
-    run_type:"General Ed PM Run",
-    bus_no:"1962",
-    route_number:"Q9858",
-    reason:"Other",
     boro:"Queens",
-    bus_company_name:"JOFAZ TRANSPORTATION INC.",
+    route_number:"Q9858",
+    bus_no:"1962",
+    run_type:"General Ed PM Run",
+    reason:"Other",
     how_long_delayed:"31-45 Min",
     number_of_students_on_the_bus:"0",
-    breakdown_or_running_late:"Running Late"
+    breakdown_or_running_late:"Running Late",
+    bus_company_name:"JOFAZ TRANSPORTATION INC.",
+    latitude:40.7000,
+    longitude:-73.8300
   }
 ];
 
-function init(){
-  displayCards(data);
+let map;
+let markers;
+
+window.onload = function(){
+  if(document.getElementById("map")){
+    makeMap();
+  }
+
+  if(document.getElementById("output")){
+    showCards(data);
+  }
+};
+
+function makeMap(){
+  map = L.map("map").setView([40.7128, -74.0060], 10);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom:18
+  }).addTo(map);
+
+  markers = L.layerGroup().addTo(map);
+
+  showMarkers(data);
 }
 
-function displayCards(list){
+function showMarkers(list){
+  markers.clearLayers();
+
+  for(let i = 0; i < list.length; i++){
+    let bus = list[i];
+
+    L.marker([bus.latitude, bus.longitude]).addTo(markers)
+    .bindPopup(
+      "<b>Bus Delay</b><br>" +
+      "Borough: " + bus.boro + "<br>" +
+      "Route: " + bus.route_number + "<br>" +
+      "Bus Number: " + bus.bus_no + "<br>" +
+      "Reason: " + bus.reason + "<br>" +
+      "Status: " + bus.breakdown_or_running_late
+    );
+  }
+}
+
+function showCards(list){
   let output = document.getElementById("output");
 
   output.innerHTML = "";
@@ -111,32 +150,36 @@ function displayCards(list){
   }
 }
 
-function filterByBorough(){
-  let borough = document.getElementById("borough").value;
+function searchBorough(){
+  let borough = document.getElementById("borough").value.toLowerCase();
   let filtered = [];
 
   for(let i = 0; i < data.length; i++){
-    if(data[i].boro.toLowerCase() == borough.toLowerCase()){
+    if(data[i].boro.toLowerCase() == borough){
       filtered.push(data[i]);
     }
   }
 
   document.getElementById("result").innerHTML = "<h3>Results Found: " + filtered.length + "</h3>";
-  displayCards(filtered);
+
+  showCards(filtered);
+  showMarkers(filtered);
 }
 
-function filterByStatus(){
-  let status = document.getElementById("status").value;
+function searchStatus(){
+  let status = document.getElementById("status").value.toLowerCase();
   let filtered = [];
 
   for(let i = 0; i < data.length; i++){
-    if(data[i].breakdown_or_running_late.toLowerCase() == status.toLowerCase()){
+    if(data[i].breakdown_or_running_late.toLowerCase() == status){
       filtered.push(data[i]);
     }
   }
 
   document.getElementById("result").innerHTML = "<h3>Results Found: " + filtered.length + "</h3>";
-  displayCards(filtered);
+
+  showCards(filtered);
+  showMarkers(filtered);
 }
 
 function showAll(){
@@ -144,5 +187,6 @@ function showAll(){
   document.getElementById("status").value = "";
   document.getElementById("result").innerHTML = "";
 
-  displayCards(data);
+  showCards(data);
+  showMarkers(data);
 }
