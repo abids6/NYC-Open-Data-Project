@@ -81,3 +81,31 @@ input{
   max-width:1000px;
   border:1px solid gray;
 }
+
+.pictures{
+  display:flex;
+  flex-wrap:wrap;
+}
+
+.pictures img{
+  width:260px;
+  height:160px;
+  object-fit:cover;
+  margin:10px;
+  border:1px solid gray;
+}
+
+.chart{
+  border:1px solid gray;
+  padding:10px;
+  width:450px;
+  margin-top:10px;
+  margin-bottom:20px;
+}
+
+.bar{
+  background-color:cornflowerblue;
+  color:white;
+  padding:6px;
+  margin:5px;
+}
