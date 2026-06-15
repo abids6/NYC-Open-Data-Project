@@ -5,15 +5,15 @@
 
     <link href="style.css" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   </head>
 
   <body>
 
     <div id="banner" class="container center">
       <div style="text-align:center">
-        <h1>View / Filter Information</h1>
+        <h1>View and Filter</h1>
         <h2>School Bus Delays</h2>
       </div>
     </div>
@@ -53,21 +53,6 @@
       <h3>Map of School Bus Delay Records</h3>
 
       <div id="map"></div>
-
-      <hr>
-
-      <h3>Chart From The Cards Being Displayed</h3>
-
-      <p>
-        This chart changes based on the cards that are showing below.
-      </p>
-
-      <div id="chart" class="chart"></div>
-
-      <h3>What The Chart Means</h3>
-
-      <p id="chartText">
-      </p>
 
       <hr>
 
@@ -165,8 +150,8 @@
 
       let map = L.map("map").setView([40.7128, -74.0060], 10);
 
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom:18
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom:19
       }).addTo(map);
 
       let markers = L.layerGroup().addTo(map);
@@ -216,57 +201,9 @@
           output.innerHTML = "<p>No results found.</p>";
         }
 
-        makeChart(list);
-      }
-
-      function makeChart(list){
-        let chart = document.getElementById("chart");
-        let chartText = document.getElementById("chartText");
-
-        let brooklyn = 0;
-        let queens = 0;
-        let bronx = 0;
-        let staten = 0;
-
-        for(let i = 0; i < list.length; i++){
-          if(list[i].boro == "Brooklyn"){
-            brooklyn++;
-          }
-          if(list[i].boro == "Queens"){
-            queens++;
-          }
-          if(list[i].boro == "Bronx"){
-            bronx++;
-          }
-          if(list[i].boro == "Staten Island"){
-            staten++;
-          }
-        }
-
-        chart.innerHTML = "";
-
-        if(brooklyn > 0){
-          chart.innerHTML += "<p>Brooklyn</p><div class='bar' style='width:" + (brooklyn * 90) + "px;'>" + brooklyn + "</div>";
-        }
-
-        if(queens > 0){
-          chart.innerHTML += "<p>Queens</p><div class='bar' style='width:" + (queens * 90) + "px;'>" + queens + "</div>";
-        }
-
-        if(bronx > 0){
-          chart.innerHTML += "<p>Bronx</p><div class='bar' style='width:" + (bronx * 90) + "px;'>" + bronx + "</div>";
-        }
-
-        if(staten > 0){
-          chart.innerHTML += "<p>Staten Island</p><div class='bar' style='width:" + (staten * 90) + "px;'>" + staten + "</div>";
-        }
-
-        if(list.length == 0){
-          chart.innerHTML = "<p>No chart because there are no cards showing.</p>";
-          chartText.innerHTML = "There are no records showing, so the chart does not have any data to display.";
-        } else {
-          chartText.innerHTML = "This chart is made from the same bus delay cards that are currently showing on the page. If you search by borough or status, the cards change and the chart changes too.";
-        }
+        setTimeout(function(){
+          map.invalidateSize();
+        }, 100);
       }
 
       function searchBorough(){
@@ -312,6 +249,10 @@
 
       showCards(data);
       showMarkers(data);
+
+      setTimeout(function(){
+        map.invalidateSize();
+      }, 500);
     </script>
 
   </body>

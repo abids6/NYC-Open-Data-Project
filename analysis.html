@@ -25,59 +25,34 @@
 
     <div class="main">
 
-      <h3>Bus Delay Analysis</h3>
-
-      <p>
-        This chart shows the number of school bus delay records by borough
-        based on the cards used in this project.
+      <p class="bigText">
+        This chart shows the number of school bus delay records by borough.
       </p>
 
-      <div class="chartControls">
-        <label for="chartType">Select chart type:</label>
+      <div class="chartTop">
+        <label for="chartType">Choose Chart:</label>
 
         <select id="chartType">
-          <option value="bar">Bar</option>
           <option value="pie">Pie</option>
+          <option value="bar">Bar</option>
           <option value="doughnut">Doughnut</option>
         </select>
 
-        <button class="button" onclick="makeChart()">Display</button>
+        <button class="button" onclick="displayChart()">Display</button>
       </div>
 
-      <div class="chartBox">
+      <div class="chartArea">
         <canvas id="myChart"></canvas>
       </div>
 
       <h3>What The Chart Means</h3>
 
-      <p>
-        This chart shows that Brooklyn and Queens have the most bus delay records
-        in my sample, with 2 records each. Bronx and Staten Island each have 1 record.
-        This does not mean Brooklyn and Queens always have the most school bus delays.
-        It only shows what appears in the small group of bus delay cards used for this project.
-      </p>
-
-      <h3>Delay Status Chart</h3>
-
-      <div class="chartBox">
-        <canvas id="statusChart"></canvas>
-      </div>
-
-      <h3>What The Second Chart Means</h3>
-
-      <p>
-        The second chart shows that most of the records are marked as Running Late.
-        There are also some records marked as Breakdown. This means the bus problems
-        were not all the same. Some buses were late, while other buses had bigger
-        problems like mechanical issues or not starting.
-      </p>
-
-      <h3>Conclusion</h3>
-
-      <p>
-        From these records, school bus delays can happen for different reasons and in
-        different boroughs. The cards show the details, the map shows the locations,
-        and the charts make the records easier to compare.
+      <p class="bigText">
+        This chart shows how many bus delay records are in each borough from the
+        data used in this project. Queens and Brooklyn each have 2 records.
+        Bronx and Staten Island each have 1 record. This does not mean those
+        boroughs always have the most delays. It only shows the records used
+        in this project.
       </p>
 
     </div>
@@ -87,88 +62,80 @@
     </div>
 
     <script>
-      let chart1;
-      let chart2;
+      let myChart;
 
-      function makeChart(){
+      function displayChart(){
         let type = document.getElementById("chartType").value;
 
-        let labels = ["Brooklyn", "Queens", "Bronx", "Staten Island"];
-        let numbers = [2, 2, 1, 1];
+        let labels = ["Queens", "Brooklyn", "Bronx", "Staten Island"];
+        let values = [2, 2, 1, 1];
+
+        let colors = ["blue", "green", "red", "purple"];
 
         let ctx = document.getElementById("myChart");
 
-        if(chart1){
-          chart1.destroy();
+        if(myChart){
+          myChart.destroy();
         }
 
-        chart1 = new Chart(ctx, {
+        myChart = new Chart(ctx, {
           type: type,
           data: {
             labels: labels,
             datasets: [{
               label: "Bus Delay Records",
-              data: numbers,
-              backgroundColor: [
-                "blue",
-                "orange",
-                "green",
-                "red"
-              ],
-              borderWidth: 1
+              data: values,
+              backgroundColor: colors,
+              borderWidth: 1,
+              hoverOffset: 0,
+              hoverBorderWidth: 0
             }]
           },
           options: {
             responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+              mode: null
+            },
             plugins: {
+              tooltip: {
+                enabled: false
+              },
               legend: {
-                display: true
+                display: true,
+                position: "top",
+                labels: {
+                  font: {
+                    size: 18
+                  },
+                  boxWidth: 40,
+                  boxHeight: 18,
+                  padding: 25
+                }
               }
             },
             scales: {
               y: {
-                beginAtZero: true
+                beginAtZero: true,
+                ticks: {
+                  font: {
+                    size: 14
+                  }
+                }
+              },
+              x: {
+                ticks: {
+                  font: {
+                    size: 14
+                  }
+                }
               }
             }
           }
         });
       }
 
-      function makeStatusChart(){
-        let ctx = document.getElementById("statusChart");
-
-        chart2 = new Chart(ctx, {
-          type: "bar",
-          data: {
-            labels: ["Running Late", "Breakdown"],
-            datasets: [{
-              label: "Delay Status",
-              data: [4, 2],
-              backgroundColor: [
-                "cornflowerblue",
-                "orange"
-              ],
-              borderWidth: 1
-            }]
-          },
-          options: {
-            responsive: true,
-            plugins: {
-              legend: {
-                display: true
-              }
-            },
-            scales: {
-              y: {
-                beginAtZero: true
-              }
-            }
-          }
-        });
-      }
-
-      makeChart();
-      makeStatusChart();
+      displayChart();
     </script>
 
   </body>
