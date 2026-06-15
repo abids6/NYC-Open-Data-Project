@@ -75,6 +75,11 @@ input{
   margin:5px;
 }
 
+select{
+  padding:6px;
+  margin:5px;
+}
+
 #map{
   height:550px;
   width:95%;
@@ -99,6 +104,7 @@ input{
   border:1px solid gray;
   padding:10px;
   width:450px;
+  max-width:90%;
   margin-top:10px;
   margin-bottom:20px;
 }

@@ -27,6 +27,7 @@
     </div>
 
     <div class="main">
+
       <h3>Bus Delay Cards</h3>
 
       <p>
@@ -54,6 +55,22 @@
       <div id="map"></div>
 
       <hr>
+
+      <h3>Chart From The Cards Being Displayed</h3>
+
+      <p>
+        This chart changes based on the cards that are showing below.
+      </p>
+
+      <div id="chart" class="chart"></div>
+
+      <h3>What The Chart Means</h3>
+
+      <p id="chartText">
+      </p>
+
+      <hr>
+
     </div>
 
     <div id="result" class="container"></div>
@@ -197,6 +214,58 @@
 
         if(list.length == 0){
           output.innerHTML = "<p>No results found.</p>";
+        }
+
+        makeChart(list);
+      }
+
+      function makeChart(list){
+        let chart = document.getElementById("chart");
+        let chartText = document.getElementById("chartText");
+
+        let brooklyn = 0;
+        let queens = 0;
+        let bronx = 0;
+        let staten = 0;
+
+        for(let i = 0; i < list.length; i++){
+          if(list[i].boro == "Brooklyn"){
+            brooklyn++;
+          }
+          if(list[i].boro == "Queens"){
+            queens++;
+          }
+          if(list[i].boro == "Bronx"){
+            bronx++;
+          }
+          if(list[i].boro == "Staten Island"){
+            staten++;
+          }
+        }
+
+        chart.innerHTML = "";
+
+        if(brooklyn > 0){
+          chart.innerHTML += "<p>Brooklyn</p><div class='bar' style='width:" + (brooklyn * 90) + "px;'>" + brooklyn + "</div>";
+        }
+
+        if(queens > 0){
+          chart.innerHTML += "<p>Queens</p><div class='bar' style='width:" + (queens * 90) + "px;'>" + queens + "</div>";
+        }
+
+        if(bronx > 0){
+          chart.innerHTML += "<p>Bronx</p><div class='bar' style='width:" + (bronx * 90) + "px;'>" + bronx + "</div>";
+        }
+
+        if(staten > 0){
+          chart.innerHTML += "<p>Staten Island</p><div class='bar' style='width:" + (staten * 90) + "px;'>" + staten + "</div>";
+        }
+
+        if(list.length == 0){
+          chart.innerHTML = "<p>No chart because there are no cards showing.</p>";
+          chartText.innerHTML = "There are no records showing, so the chart does not have any data to display.";
+        } else {
+          chartText.innerHTML = "This chart is made from the same bus delay cards that are currently showing on the page. If you search by borough or status, the cards change and the chart changes too.";
         }
       }
 

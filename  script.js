@@ -83,13 +83,8 @@ let map;
 let markers;
 
 window.onload = function(){
-  if(document.getElementById("map")){
-    makeMap();
-  }
-
-  if(document.getElementById("output")){
-    showCards(data);
-  }
+  makeMap();
+  showCards(data);
 };
 
 function makeMap(){
