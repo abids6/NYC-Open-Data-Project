@@ -3,60 +3,241 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>View and Filter</title>    
 
-    <!-- LeafletJS CSS file -->
+    <title>View and Filter</title>
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-    <!-- LeafletJS JS file -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-    <link href="./style.css" rel="stylesheet" type="text/css" />
-    <script src="./script.js"></script>    
+    <link href="style.css" rel="stylesheet" type="text/css" />
+
+    <script>
+      let output, result, mapObj;
+
+      let data = [
+        {
+          "date": "2023-12-31",
+          "time": "23:45:00",
+          "borough": "BROOKLYN",
+          "precinct": "73",
+          "status": "false",
+          "age": "25-44",
+          "latitude": "40.669",
+          "longitude": "-73.910"
+        },
+        {
+          "date": "2023-12-30",
+          "time": "21:10:00",
+          "borough": "BRONX",
+          "precinct": "44",
+          "status": "false",
+          "age": "18-24",
+          "latitude": "40.837",
+          "longitude": "-73.921"
+        },
+        {
+          "date": "2023-12-29",
+          "time": "19:25:00",
+          "borough": "QUEENS",
+          "precinct": "103",
+          "status": "false",
+          "age": "25-44",
+          "latitude": "40.704",
+          "longitude": "-73.792"
+        },
+        {
+          "date": "2023-12-28",
+          "time": "17:30:00",
+          "borough": "MANHATTAN",
+          "precinct": "32",
+          "status": "true",
+          "age": "25-44",
+          "latitude": "40.813",
+          "longitude": "-73.945"
+        },
+        {
+          "date": "2023-12-27",
+          "time": "15:15:00",
+          "borough": "STATEN ISLAND",
+          "precinct": "120",
+          "status": "false",
+          "age": "45-64",
+          "latitude": "40.626",
+          "longitude": "-74.077"
+        },
+        {
+          "date": "2023-12-26",
+          "time": "12:10:00",
+          "borough": "BROOKLYN",
+          "precinct": "75",
+          "status": "true",
+          "age": "18-24",
+          "latitude": "40.678",
+          "longitude": "-73.944"
+        }
+      ];
+
+      function get(id){
+        return document.getElementById(id);
+      }
+
+      function card(info){
+        let mapButton = "";
+
+        if(info.latitude && info.longitude){
+          mapButton = `<input type="button" onclick="showMap(${info.latitude}, ${info.longitude})" value="Map">`;
+        }
+
+        let build = `<div class="card fitted">
+                        <h3>${info.borough}</h3>
+                        <h5>Precinct: ${info.precinct}</h5>
+                        <p>${info.date}</p>
+                        <p>${info.time}</p>
+                        <hr>
+                        <p>Age Group: ${info.age}</p>
+                        <p>Status: ${info.status}</p>
+                        ${mapButton}
+                    </div>`;
+
+        return build;
+      }
+
+      function showMap(lat, lon){
+        let location = [lat, lon];
+
+        if(!mapObj){
+          mapObj = L.map("map");
+        }
+
+        mapObj.setView(location, 14);
+
+        let tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 18,
+          attribution: "&copy; OpenStreetMap"
+        }).addTo(mapObj);
+
+        let marker = L.marker(location).addTo(mapObj);
+      }
+
+      function init(){
+        output = get("output");
+        result = get("result");
+
+        let build = "";
+
+        for(let i = 0; i < data.length; i++){
+          build = build + card(data[i]);
+        }
+
+        result.innerHTML = data.length + " Results found.";
+        output.innerHTML = build;
+      }
+
+      function filterByBoroughAndStatus(){
+        let borough = get("boroughs").value;
+        let status = get("statuses").value;
+
+        let build = "";
+        let found = 0;
+
+        for(let i = 0; i < data.length; i++){
+          let info = data[i];
+
+          if(info.borough == borough && info.status == status){
+            build = build + card(info);
+            found = found + 1;
+          }
+        }
+
+        result.innerHTML = found + " Results found.";
+        output.innerHTML = build;
+      }
+
+      function filterByPrecinctOrAge(){
+        let precinct = get("precinct").value;
+        let age = get("ages").value;
+
+        let build = "";
+        let found = 0;
+
+        for(let i = 0; i < data.length; i++){
+          let info = data[i];
+
+          if(info.precinct == precinct || info.age == age){
+            build = build + card(info);
+            found = found + 1;
+          }
+        }
+
+        result.innerHTML = found + " Results found.";
+        output.innerHTML = build;
+      }
+    </script>
   </head>
-  
+
   <body onload="init()">
     <div id="banner" class="container center">
       <div style="text-align:center">
-          <h1>NYC Open Data</h1>
-          <h2>Filtering NYPD Incident Records</h2>
+        <h1>NYC Open Data</h1>
+        <h2>View and Filter</h2>
       </div>
     </div>
 
     <nav class="container">
-      <a href="./index.html">Home</a>
-      <a href="./filter.html">View and Filter</a>
-      <a href="./analysis.html">Analysis</a>
+      <a href="index.html">Home</a>
+      <a href="filter.html">View and Filter</a>
+      <a href="analysis.html">Analysis</a>
     </nav>
 
     <div class="container subbanner">
       <div>
-        <p>This example demonstrates how to filter through information using multiple criterias.  
-          Logical operator enable decisions to combine conditions using && and ||.  
-          Example uses NYPD incident records from NYC Open Data and generate HTML cards based on some search criteria.</p>
+        <p>This page lets the user search the data by borough, status, precinct, and age group. The results show as cards, and the map button shows the location.</p>
       </div>
     </div>
 
     <div class="container">
       <div id="leftPanel">
+
         <div class="card">
           <h3>By Borough and Status</h3>
-          <p><span class="highlight">Scenario:</span>
-            Traverse through all the incident records and filter entries by borough and status.</p>
-          <select id="boroughs"></select>
-          <select id="statuses"></select>
+          <p><span class="highlight">Scenario:</span> Filter the data by borough and status.</p>
+
+          <select id="boroughs">
+            <option value="">Select Option</option>
+            <option value="BROOKLYN">BROOKLYN</option>
+            <option value="BRONX">BRONX</option>
+            <option value="QUEENS">QUEENS</option>
+            <option value="MANHATTAN">MANHATTAN</option>
+            <option value="STATEN ISLAND">STATEN ISLAND</option>
+          </select>
+
+          <select id="statuses">
+            <option value="">Select Option</option>
+            <option value="false">false</option>
+            <option value="true">true</option>
+          </select>
+
           <hr>
-          <a class="button" onclick="filterByBoroughAndStatus()"> Search </a>
+          <a class="button" onclick="filterByBoroughAndStatus()">Search</a>
         </div>
 
         <div class="card">
           <h3>By Precinct or Age Group</h3>
-          <p><span class="highlight">Scenario:</span>
-            Traverse through all the incident records and filter entries by either precinct or age group.</p>
+          <p><span class="highlight">Scenario:</span> Filter the data by precinct or age group.</p>
+
           <input type="text" id="precinct" placeholder="Enter Precinct">
-          <select id="age_groups"></select>
+
+          <select id="ages">
+            <option value="">Select Option</option>
+            <option value="18-24">18-24</option>
+            <option value="25-44">25-44</option>
+            <option value="45-64">45-64</option>
+          </select>
+
           <hr>
-          <a class="button" onclick="filterByPrecinctOrAge()"> Search </a>
+          <a class="button" onclick="filterByPrecinctOrAge()">Search</a>
         </div>
+
       </div>
 
       <div class="card" id="rightPanel">
@@ -66,9 +247,9 @@
         <div id="map"></div>
       </div>
     </div>
-    
+
     <div id="footer" class="container center">
       <h3>View and Filter</h3>
-    </div>  
+    </div>
   </body>
 </html>
