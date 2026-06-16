@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>View and Filter</title>    
+
+    <!-- LeafletJS CSS file -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <!-- LeafletJS JS file -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <link href="./style.css" rel="stylesheet" type="text/css" />
+    <script src="./script.js"></script>    
+  </head>
+  
+  <body onload="init()">
+    <div id="banner" class="container center">
+      <div style="text-align:center">
+          <h1>NYC Open Data</h1>
+          <h2>Filtering NYPD Incident Records</h2>
+      </div>
+    </div>
+
+    <nav class="container">
+      <a href="./index.html">Home</a>
+      <a href="./filter.html">View and Filter</a>
+      <a href="./analysis.html">Analysis</a>
+    </nav>
+
+    <div class="container subbanner">
+      <div>
+        <p>This example demonstrates how to filter through information using multiple criterias.  
+          Logical operator enable decisions to combine conditions using && and ||.  
+          Example uses NYPD incident records from NYC Open Data and generate HTML cards based on some search criteria.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="leftPanel">
+        <div class="card">
+          <h3>By Borough and Status</h3>
+          <p><span class="highlight">Scenario:</span>
+            Traverse through all the incident records and filter entries by borough and status.</p>
+          <select id="boroughs"></select>
+          <select id="statuses"></select>
+          <hr>
+          <a class="button" onclick="filterByBoroughAndStatus()"> Search </a>
+        </div>
+
+        <div class="card">
+          <h3>By Precinct or Age Group</h3>
+          <p><span class="highlight">Scenario:</span>
+            Traverse through all the incident records and filter entries by either precinct or age group.</p>
+          <input type="text" id="precinct" placeholder="Enter Precinct">
+          <select id="age_groups"></select>
+          <hr>
+          <a class="button" onclick="filterByPrecinctOrAge()"> Search </a>
+        </div>
+      </div>
+
+      <div class="card" id="rightPanel">
+        <h1>Output</h1>
+        <div id="result"></div>
+        <div id="output"></div>
+        <div id="map"></div>
+      </div>
+    </div>
+    
+    <div id="footer" class="container center">
+      <h3>View and Filter</h3>
+    </div>  
+  </body>
+</html>

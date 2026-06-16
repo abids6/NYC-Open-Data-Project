@@ -1,0 +1,112 @@
+[
+  {
+    "incident_key": "1",
+    "occur_date": "2023-12-31T00:00:00.000",
+    "occur_time": "23:45:00",
+    "boro": "BROOKLYN",
+    "precinct": "73",
+    "statistical_murder_flag": "false",
+    "vic_age_group": "25-44",
+    "latitude": "40.669",
+    "longitude": "-73.910"
+  },
+  {
+    "incident_key": "2",
+    "occur_date": "2023-12-30T00:00:00.000",
+    "occur_time": "21:10:00",
+    "boro": "BRONX",
+    "precinct": "44",
+    "statistical_murder_flag": "false",
+    "vic_age_group": "18-24",
+    "latitude": "40.837",
+    "longitude": "-73.921"
+  },
+  {
+    "incident_key": "3",
+    "occur_date": "2023-12-29T00:00:00.000",
+    "occur_time": "19:25:00",
+    "boro": "QUEENS",
+    "precinct": "103",
+    "statistical_murder_flag": "false",
+    "vic_age_group": "25-44",
+    "latitude": "40.704",
+    "longitude": "-73.792"
+  },
+  {
+    "incident_key": "4",
+    "occur_date": "2023-12-28T00:00:00.000",
+    "occur_time": "17:30:00",
+    "boro": "MANHATTAN",
+    "precinct": "32",
+    "statistical_murder_flag": "true",
+    "vic_age_group": "25-44",
+    "latitude": "40.813",
+    "longitude": "-73.945"
+  },
+  {
+    "incident_key": "5",
+    "occur_date": "2023-12-27T00:00:00.000",
+    "occur_time": "15:15:00",
+    "boro": "STATEN ISLAND",
+    "precinct": "120",
+    "statistical_murder_flag": "false",
+    "vic_age_group": "45-64",
+    "latitude": "40.626",
+    "longitude": "-74.077"
+  },
+  {
+    "incident_key": "6",
+    "occur_date": "2023-12-26T00:00:00.000",
+    "occur_time": "12:10:00",
+    "boro": "BROOKLYN",
+    "precinct": "75",
+    "statistical_murder_flag": "false",
+    "vic_age_group": "18-24",
+    "latitude": "40.678",
+    "longitude": "-73.944"
+  },
+  {
+    "incident_key": "7",
+    "occur_date": "2023-12-25T00:00:00.000",
+    "occur_time": "20:05:00",
+    "boro": "BRONX",
+    "precinct": "46",
+    "statistical_murder_flag": "true",
+    "vic_age_group": "25-44",
+    "latitude": "40.855",
+    "longitude": "-73.907"
+  },
+  {
+    "incident_key": "8",
+    "occur_date": "2023-12-24T00:00:00.000",
+    "occur_time": "18:40:00",
+    "boro": "QUEENS",
+    "precinct": "113",
+    "statistical_murder_flag": "false",
+    "vic_age_group": "45-64",
+    "latitude": "40.681",
+    "longitude": "-73.765"
+  },
+  {
+    "incident_key": "9",
+    "occur_date": "2023-12-23T00:00:00.000",
+    "occur_time": "14:50:00",
+    "boro": "MANHATTAN",
+    "precinct": "25",
+    "statistical_murder_flag": "false",
+    "vic_age_group": "18-24",
+    "latitude": "40.800",
+    "longitude": "-73.937"
+  },
+  {
+    "incident_key": "10",
+    "occur_date": "2023-12-22T00:00:00.000",
+    "occur_time": "22:15:00",
+    "boro": "BROOKLYN",
+    "precinct": "81",
+    "statistical_murder_flag": "false",
+    "vic_age_group": "25-44",
+    "latitude": "40.682",
+    "longitude": "-73.936"
+  }
+]
